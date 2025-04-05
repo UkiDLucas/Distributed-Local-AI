@@ -1,6 +1,5 @@
 """ agent_ping.py
-A FastAPI-based AIKO agent that discovers 'PONG' via Zeroconf and sends
-1000 ping-pong messages.
+Updated FastAPI AIKO agent that discovers 'PONG' via Zeroconf with retries.
 """
 
 import time
@@ -18,6 +17,8 @@ AGENT_PORT = settings.AGENT_PORT
 TARGET_AGENT_NAME = settings.TARGET_AGENT_NAME
 MAX_COUNT = settings.MAX_COUNT
 LOG_FILE = settings.LOG_FILE
+DISCOVERY_RETRY_INTERVAL = 2  # seconds
+DISCOVERY_MAX_RETRIES = 5
 
 # --- Setup logging ---
 logging.basicConfig(
@@ -40,7 +41,7 @@ class Message(BaseModel):
 def run_action(message: str, user: dict) -> tuple[str, list[str]]:
     """
     Processes the user's message and returns (context_md, matched_files).
-    In this agent, the function drives a ping by forwarding a message.
+    This drives a ping by forwarding messages.
     """
     global TARGET_URL
     count = int(message.split("#")[1])
@@ -63,28 +64,27 @@ async def forward_message(msg: str):
 # --- Handle incoming message via HTTP ---
 @app.post("/handle")
 async def handle_message(msg: Message):
-    """
-    Handles incoming messages. Responds to the sender by incrementing
-    the message count and forwarding it. Ends when MAX_COUNT is reached.
-    """
-    logging.info(f"[{AGENT_NAME}] Received: {msg.message} at {time.time()}")
-    context_md, matched_files = run_action(msg.message, user={})
-    return {"context_md": context_md, "matched_files": matched_files}
+    logging.info(f"[{AGENT_NAME}] Received: {msg.message}")
+    run_action(msg.message, {})
 
-# --- Startup event handler ---
+# --- Startup logic to discover target with retries ---
 @app.on_event("startup")
-async def startup():
-    """
-    On startup, register this agent using Async Zeroconf and discover the
-    target PONG agent. Once found, initiate the ping-pong sequence by
-    sending the first message. This makes PING the initiator.
-    """
-    print(f"[{AGENT_NAME}] Starting up...")
-    await register_service(agent_name=AGENT_NAME, port=AGENT_PORT)
-    await asyncio.sleep(2)  # Give PONG a moment to register before discovery
+async def startup_event():
     global TARGET_URL
-    TARGET_URL = await discover_target(TARGET_AGENT_NAME)
+
+    await register_service(AGENT_NAME, AGENT_PORT)
+
+    retries = 0
+    while retries < DISCOVERY_MAX_RETRIES and not TARGET_URL:
+        TARGET_URL = await discover_target(TARGET_AGENT_NAME)
+        if not TARGET_URL:
+            logging.warning(f"[{AGENT_NAME}] Could not discover {TARGET_AGENT_NAME}. Retrying...")
+            await asyncio.sleep(DISCOVERY_RETRY_INTERVAL)
+            retries += 1
 
     if TARGET_URL:
-        await asyncio.sleep(1)  # Give PONG a moment to be ready
-        await forward_message("message #0")
+        logging.info(f"[{AGENT_NAME}] Discovered {TARGET_AGENT_NAME} at {TARGET_URL}")
+        # Start the first message
+        asyncio.create_task(forward_message("message #1"))
+    else:
+        logging.error(f"[{AGENT_NAME}] Failed to discover {TARGET_AGENT_NAME} after {DISCOVERY_MAX_RETRIES} retries.")

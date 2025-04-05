@@ -1,13 +1,22 @@
-2025-04-04 23:14:19,728 [INFO] [PONG] Started server process [90776]
-2025-04-04 23:14:19,728 [INFO] [PONG] Waiting for application startup.
-2025-04-04 23:14:19,759 [INFO] [PING] Started server process [90775]
-2025-04-04 23:14:19,759 [INFO] [PING] Waiting for application startup.
+2025-04-04 23:21:26,392 [INFO] [PONG] Started server process [91537]
+2025-04-04 23:21:26,393 [INFO] [PONG] Waiting for application startup.
+2025-04-04 23:21:26,434 [INFO] [PING] Started server process [91536]
+2025-04-04 23:21:26,434 [INFO] [PING] Waiting for application startup.
 [PING] Starting up...
 [PING] Registered on LAN at 192.168.86.37:8000
-2025-04-04 23:14:20,093 [INFO] [PONG] Application startup complete.
-2025-04-04 23:14:20,094 [INFO] [PONG] Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
-[PING] Starting up...
+2025-04-04 23:21:26,759 [INFO] [PONG] Application startup complete.
+2025-04-04 23:21:26,760 [INFO] [PONG] Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
 [PING] Registered on LAN at 192.168.86.37:8000
 [WARNING]: Could not discover PONG.
-2025-04-04 23:14:25,478 [INFO] [PING] Application startup complete.
-2025-04-04 23:14:25,480 [INFO] [PING] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-04 23:21:30,136 [WARNING] [PING] [PING] Could not discover PONG. Retrying...
+[WARNING]: Could not discover PONG.
+2025-04-04 23:21:35,166 [WARNING] [PING] [PING] Could not discover PONG. Retrying...
+[WARNING]: Could not discover PONG.
+2025-04-04 23:21:40,197 [WARNING] [PING] [PING] Could not discover PONG. Retrying...
+[WARNING]: Could not discover PONG.
+2025-04-04 23:21:45,197 [WARNING] [PING] [PING] Could not discover PONG. Retrying...
+[WARNING]: Could not discover PONG.
+2025-04-04 23:21:50,197 [WARNING] [PING] [PING] Could not discover PONG. Retrying...
+2025-04-04 23:21:52,197 [ERROR] [PING] [PING] Failed to discover PONG after 5 retries.
+2025-04-04 23:21:52,197 [INFO] [PING] Application startup complete.
+2025-04-04 23:21:52,197 [INFO] [PING] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
