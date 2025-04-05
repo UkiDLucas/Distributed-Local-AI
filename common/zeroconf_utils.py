@@ -1,18 +1,19 @@
 """ zeroconf_utils.py
-Zeroconf-based service registration and discovery for AIKO agents.
+Async Zeroconf-based service registration and discovery for AIKO agents.
 """
 
 import socket
 import asyncio
-from zeroconf import Zeroconf, ServiceInfo, ServiceBrowser
+from zeroconf import ServiceInfo, ServiceBrowser
+from zeroconf.asyncio import AsyncZeroconf
 
-# Global Zeroconf instance
-zeroconf = Zeroconf()
+# Global reference to AsyncZeroconf instance (optional to reuse)
+async_zeroconf = AsyncZeroconf()
 
-# Register the current agent on the LAN using Zeroconf
-# This makes it discoverable by name without IP config
+# Register the current agent on the LAN using Async Zeroconf
+# This avoids event loop conflicts and works with modern FastAPI servers
 
-def register_service(agent_name: str, port: int):
+async def register_service(agent_name: str, port: int) -> AsyncZeroconf:
     local_ip = socket.gethostbyname(socket.gethostname())
     service = ServiceInfo(
         type_="_aikoagent._tcp.local.",
@@ -22,8 +23,9 @@ def register_service(agent_name: str, port: int):
         properties={"role": "initiator"},
         server=f"{agent_name}.local.",
     )
-    zeroconf.register_service(service)
+    await async_zeroconf.async_register_service(service)
     print(f"[{agent_name}] Registered on LAN at {local_ip}:{port}")
+    return async_zeroconf
 
 
 # Discover another agent on the LAN by name (e.g., PONG)
@@ -39,7 +41,7 @@ async def discover_target(target_agent_name: str, timeout: int = 3) -> str:
                 self.info = zc.get_service_info(type_, name)
 
     listener = Listener()
-    ServiceBrowser(zeroconf, "_aikoagent._tcp.local.", listener)
+    ServiceBrowser(async_zeroconf.zeroconf, "_aikoagent._tcp.local.", listener)
 
     for _ in range(timeout * 10):
         await asyncio.sleep(0.1)

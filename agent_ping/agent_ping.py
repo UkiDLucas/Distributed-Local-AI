@@ -17,10 +17,11 @@ AGENT_NAME = settings.AGENT_NAME
 AGENT_PORT = settings.AGENT_PORT
 TARGET_AGENT_NAME = settings.TARGET_AGENT_NAME
 MAX_COUNT = settings.MAX_COUNT
+LOG_FILE = settings.LOG_FILE
 
 # --- Setup logging ---
 logging.basicConfig(
-    filename="console.txt",
+    filename=LOG_FILE,
     level=logging.INFO,
     format=f"%(asctime)s [{AGENT_NAME}] %(message)s"
 )
@@ -74,15 +75,14 @@ async def handle_message(msg: Message):
 @app.on_event("startup")
 async def startup():
     """
-    On startup, register this agent using Zeroconf and discover the
+    On startup, register this agent using Async Zeroconf and discover the
     target PONG agent. Once found, initiate the ping-pong sequence by
     sending the first message. This makes PING the initiator.
     """
-    register_service(agent_name=AGENT_NAME, port=AGENT_PORT)
     global TARGET_URL
+    await register_service(agent_name=AGENT_NAME, port=AGENT_PORT)
     TARGET_URL = await discover_target(TARGET_AGENT_NAME)
 
     if TARGET_URL:
         await asyncio.sleep(1)  # Give PONG a moment to be ready
-        print(f"[{AGENT_NAME}] Starting message #0")
         await forward_message("message #0")

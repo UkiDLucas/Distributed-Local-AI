@@ -1,0 +1,2 @@
+2025-04-04 22:11:23,288 [PING] Error with socket 11 (('10.0.22.16', 5353))): [Errno 50] Network is down
+OSError: [Errno 50] Network is down
