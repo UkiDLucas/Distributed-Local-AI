@@ -16,13 +16,13 @@ echo "Starting PING agent..."
 uvicorn agent_ping.agent_ping:app \
   --host 0.0.0.0 \
   --port 8000 \
-  --log-config logging.ini >> console.txt 2>&1 &
+  --log-config agent_ping/logging_ping.ini >> console.txt 2>&1 &
 
-echo "Starting PONG agent..."
 uvicorn agent_pong.agent_pong:app \
   --host 0.0.0.0 \
   --port 8001 \
-  --log-config logging.ini >> console.txt 2>&1 &
+  --log-config agent_pong/logging_pong.ini >> console.txt 2>&1 &
+
 
 wait
 echo "Both agents are running."

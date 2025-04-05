@@ -1,11 +1,13 @@
-2025-04-04 22:52:44,842 [INFO] Started server process [88349]
-2025-04-04 22:52:44,842 [INFO] Waiting for application startup.
-2025-04-04 22:52:44,878 [INFO] Started server process [88348]
-2025-04-04 22:52:44,878 [INFO] Waiting for application startup.
+2025-04-04 23:14:19,728 [INFO] [PONG] Started server process [90776]
+2025-04-04 23:14:19,728 [INFO] [PONG] Waiting for application startup.
+2025-04-04 23:14:19,759 [INFO] [PING] Started server process [90775]
+2025-04-04 23:14:19,759 [INFO] [PING] Waiting for application startup.
+[PING] Starting up...
 [PING] Registered on LAN at 192.168.86.37:8000
-2025-04-04 22:52:45,207 [INFO] Application startup complete.
-2025-04-04 22:52:45,208 [INFO] Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-04-04 23:14:20,093 [INFO] [PONG] Application startup complete.
+2025-04-04 23:14:20,094 [INFO] [PONG] Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+[PING] Starting up...
 [PING] Registered on LAN at 192.168.86.37:8000
 [WARNING]: Could not discover PONG.
-2025-04-04 22:52:48,587 [INFO] Application startup complete.
-2025-04-04 22:52:48,589 [INFO] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+2025-04-04 23:14:25,478 [INFO] [PING] Application startup complete.
+2025-04-04 23:14:25,480 [INFO] [PING] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)

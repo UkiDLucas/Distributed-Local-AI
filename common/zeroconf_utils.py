@@ -38,7 +38,7 @@ async def discover_target(target_agent_name: str, timeout: int = 3) -> str:
             self.info = None
 
         def add_service(self, zc, type_, name):
-            if target_agent_name in name:
+            if target_agent_name.lower() in name.lower():
                 self.info = zc.get_service_info(type_, name)
 
         def update_service(self, zc, type_, name):

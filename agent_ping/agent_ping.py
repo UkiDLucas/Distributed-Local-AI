@@ -23,7 +23,7 @@ LOG_FILE = settings.LOG_FILE
 logging.basicConfig(
     filename=LOG_FILE,
     level=logging.INFO,
-    format=f"%(asctime)s [{AGENT_NAME}] %(message)s"
+    format=f"%(asctime)s [%(levelname)s] [{AGENT_NAME}] %(message)s"
 )
 
 # FastAPI app instance
@@ -79,8 +79,10 @@ async def startup():
     target PONG agent. Once found, initiate the ping-pong sequence by
     sending the first message. This makes PING the initiator.
     """
-    global TARGET_URL
+    print(f"[{AGENT_NAME}] Starting up...")
     await register_service(agent_name=AGENT_NAME, port=AGENT_PORT)
+    await asyncio.sleep(2)  # Give PONG a moment to register before discovery
+    global TARGET_URL
     TARGET_URL = await discover_target(TARGET_AGENT_NAME)
 
     if TARGET_URL:

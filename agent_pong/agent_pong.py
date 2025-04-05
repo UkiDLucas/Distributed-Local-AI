@@ -21,7 +21,7 @@ LOG_FILE = settings.LOG_FILE
 logging.basicConfig(
     filename=LOG_FILE,
     level=logging.INFO,
-    format=f"%(asctime)s [{AGENT_NAME}] %(message)s"
+    format=f"%(asctime)s [%(levelname)s] [{AGENT_NAME}] %(message)s"
 )
 
 # FastAPI app instance
@@ -68,4 +68,5 @@ async def startup():
     On startup, register this agent using Async Zeroconf so it can be
     discovered by the initiating PING agent.
     """
+    print(f"[{AGENT_NAME}] Starting up...")
     await register_service(agent_name=AGENT_NAME, port=AGENT_PORT)
