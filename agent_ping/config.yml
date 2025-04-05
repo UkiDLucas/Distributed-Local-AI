@@ -1,0 +1,8 @@
+# config.yml
+# Configuration file for the PING agent
+
+AGENT_NAME: "PING"
+AGENT_PORT: 8000
+TARGET_AGENT_NAME: "PONG"
+MAX_COUNT: 1000
+LOG_FILE: "console.txt"

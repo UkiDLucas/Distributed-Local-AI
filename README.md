@@ -10,11 +10,19 @@ FastAPI.
 # Project structure (tree)
 
 ```
-.
-├── agent_ping.py
+Distributed-Local-AI
 ├── LICENSE
 ├── README.md
-└── 2025-04-04 Distributed Local AI System.md
+├── agent_ping
+│   ├── agent_ping.py
+│   └── config.yml
+├── common
+│   ├── config.py
+│   ├── zeroconf_utils.py
+│   ├── http_handler.py
+│   └── message_schema.py
+├── requirements.txt
+└── start_agents.sh
 ```
 
 # Environment
@@ -28,17 +36,23 @@ This project was written specifically to run on macOS.
 Create a virtual environment and install the required packages:
 
 ```bash
-python3 -m venv venv
-source venv/bin/activate
-pip install fastapi uvicorn zeroconf httpx
+python3 -m venv env_Distributed-Local-AI
+source env_Distributed-Local-AI/bin/activate
+pip install -r requirements.txt
 ```
 
 ## How to run it
 
+Make the startup script executable:
+
+```bash
+chmod +x start_agents.sh
+```
+
 Start the FastAPI server for the `PING` agent:
 
 ```bash
-uvicorn agent_ping:app --host 0.0.0.0 --port 8000
+./start_agents.sh
 ```
 
 This registers the `PING` service on your local network and begins
@@ -53,4 +67,3 @@ Make sure the corresponding `PONG` agent is running on the same LAN.
 
 Respectfully,  
 Uki D. Lucas
-

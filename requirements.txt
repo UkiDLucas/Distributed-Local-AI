@@ -1,0 +1,8 @@
+# requirements.txt
+fastapi
+uvicorn
+httpx
+zeroconf
+pydantic>=2.7
+pydantic-settings>=2.0
+PyYAML
