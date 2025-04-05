@@ -8,6 +8,5 @@
 
 echo "Starting PING agent..."
 uvicorn agent_ping.agent_ping:app \
-  --reload \
   --host 0.0.0.0 \
   --port 8000
