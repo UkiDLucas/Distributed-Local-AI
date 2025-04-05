@@ -1,2 +1,11 @@
-2025-04-04 22:11:23,288 [PING] Error with socket 11 (('10.0.22.16', 5353))): [Errno 50] Network is down
-OSError: [Errno 50] Network is down
+2025-04-04 22:52:44,842 [INFO] Started server process [88349]
+2025-04-04 22:52:44,842 [INFO] Waiting for application startup.
+2025-04-04 22:52:44,878 [INFO] Started server process [88348]
+2025-04-04 22:52:44,878 [INFO] Waiting for application startup.
+[PING] Registered on LAN at 192.168.86.37:8000
+2025-04-04 22:52:45,207 [INFO] Application startup complete.
+2025-04-04 22:52:45,208 [INFO] Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+[PING] Registered on LAN at 192.168.86.37:8000
+[WARNING]: Could not discover PONG.
+2025-04-04 22:52:48,587 [INFO] Application startup complete.
+2025-04-04 22:52:48,589 [INFO] Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)

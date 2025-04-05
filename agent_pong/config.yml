@@ -1,0 +1,8 @@
+# pong_config.yml
+# Configuration file for the PONG agent
+
+AGENT_NAME: "PONG"
+AGENT_PORT: 8001
+TARGET_AGENT_NAME: "PING"
+MAX_COUNT: 1000
+LOG_FILE: "console.txt"
